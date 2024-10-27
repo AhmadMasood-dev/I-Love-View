@@ -1,4 +1,5 @@
 import { Eye } from "../../assets/images/images.js";
+import { skip } from "../../assets/images/images.js";
 import { Onboarding } from "../../assets/images/data.js";
 import { useState } from "react";
 function View1() {
@@ -6,8 +7,13 @@ function View1() {
   const handleNextCard = () => {
     if (currentIndex < Onboarding.length - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
+      console.log(currentIndex);
     }
   };
+
+  if (innerWidth > 450) {
+    var skipButton = true;
+  }
   return (
     <div className="bgImage  w-[1440px]">
       <div className="mx-auto sm:pl-7 pl-5 sm:pt-5 pt-4">
@@ -19,6 +25,16 @@ function View1() {
           {Onboarding.map((boarding, index) =>
             index === currentIndex ? (
               <div key={boarding.id} className="w-4/5 h-full">
+                {/* skip icon */}
+
+                {skipButton && index !== 5 && index > 0 && (
+                  <div className="flex justify-end">
+                    <button onClick={handleNextCard}>
+                      <img src={skip} alt="" />
+                    </button>
+                  </div>
+                )}
+
                 {/* images */}
                 <img
                   src={boarding.image}

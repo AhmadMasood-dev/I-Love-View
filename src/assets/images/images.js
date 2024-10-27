@@ -7,6 +7,7 @@ import onboardImg4 from "./screen1/Onboardings/onboardImg4.png";
 import onboardImg5 from "./screen1/Onboardings/onboardImg5.png";
 import onboardImg6 from "./screen1/Onboardings/onboardImg6.png";
 
+import skip from "./screen1/skip.png";
 export {
   Bg,
   Eye,
@@ -16,4 +17,5 @@ export {
   onboardImg4,
   onboardImg5,
   onboardImg6,
+  skip,
 };
