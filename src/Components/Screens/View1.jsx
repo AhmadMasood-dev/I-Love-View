@@ -1,39 +1,50 @@
-import { Eye, Welcome1 } from "../../assets/images/images.js";
+import { Eye } from "../../assets/images/images.js";
+import { Onboarding } from "../../assets/images/data.js";
 function View1() {
+  // const Onboarding = [
+  //   {
+  //     id: 1,
+  //     image: Welcome1,
+  //     description: "Send and receive private videos with family and friends, and schedule future releases.",
+  //     heading: "Welcome to",
+  //     buttonText: "Get Started",
+  //   },
+  // ];
   return (
-    // <div className=" ">
-    <div className=" h-[1024px] w-[1440px]  m-auto flex items-center justify-center bgImage">
-      {/* in-h-screen bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 "> */}
-      <div className="absolute top-5 left-5">
-        <img src={Eye} alt="Eye Logo" className="w-10 h-10" />
+    <div className="bgImage  w-[1440px]">
+      <div className="mx-auto sm:pl-7 pl-5 sm:pt-5 pt-4">
+        <img src={Eye} alt="Eye Logo" className="sm:w-14 w-8 h-9 sm:h-14 " />
       </div>
-      {/* Card */}
-      <div className="bg-white rounded-2xl shadow-lg  flex items-center justify-center text-center h-[578px] w-[514px] ">
-        {/* Illustration Image */}
-        <div className="w-4/6">
-          <img
-            src={Welcome1}
-            alt="Welcome Illustration"
-            className="w-[325px] h-[325px]  "
-          />
+      <div className=" h-full mx-auto flex items-center justify-center  ">
+        {/* Card */}
+        <div className=" rounded-2xl sm:shadow-lg  flex items-center justify-center text-center h-[550px] w-[500px] ">
+          {Onboarding.map((boarding) => (
+            <div key={boarding.id} className="w-4/5 h-full">
+              {/* images */}
+              <img
+                src={boarding.image}
+                alt="Welcome Illustration"
+                className=" w-full px-5 h-[325px] mb-10 sm:mb-3 "
+              />
 
-          {/* Heading */}
-          <h2 className=" font-semibold text-2xl     ">
-            Welcome to <span className="text-red-500">ILoveView</span>
-          </h2>
-          {/* Description */}
-          <p className="text-gray-600 mb-6">
-            Send and receive private videos with family and friends, and
-            schedule future releases.
-          </p>
+              {/* Heading */}
+              <h2 className=" font-semibold text-2xl mb-1     ">
+                {boarding.heading}
+                <span className="text-primary">ILoveView</span>
+              </h2>
+              {/* Description */}
+              <p className="text-secondary text-sm w-full sm:mb-10 mb-8">
+                {boarding.description}
+              </p>
 
-          {/* Button */}
-          <button className="bg-red-500 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300">
-            Get Started
-          </button>
+              {/* Button */}
+              <button className="bg-primary self-end hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300 w-full mb-2">
+                {boarding.buttonText}
+              </button>
+            </div>
+          ))}
         </div>
       </div>
-      {/* </div>{" "} */}
     </div>
   );
 }
