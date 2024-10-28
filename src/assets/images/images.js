@@ -6,9 +6,15 @@ import onboardImg3 from "./screen1/Onboardings/onboardImg3.png";
 import onboardImg4 from "./screen1/Onboardings/onboardImg4.png";
 import onboardImg5 from "./screen1/Onboardings/onboardImg5.png";
 import onboardImg6 from "./screen1/Onboardings/onboardImg6.png";
-import autumn from '../images/Screen2/antumn.png'
-import side1  from './Screen2/login.png'
+import autumn from "../images/Screen2/antumn.png";
+import side1 from "./Screen2/login.png";
 import skip from "./screen1/skip.png";
+import lock from "./Screen2/lock9.svg";
+import email from "./Screen2/mage_email-opened-fill.svg";
+import user from "./Screen2/wpf_name.svg";
+import eyeOn from "./Screen2/Eye.svg";
+import eyeOff from "./Screen2/EyeOff.svg";
+
 export {
   Bg,
   Eye,
@@ -20,5 +26,10 @@ export {
   onboardImg6,
   skip,
   autumn,
-  side1
+  side1,
+  lock,
+  email,
+  user,
+  eyeOn,
+  eyeOff,
 };
