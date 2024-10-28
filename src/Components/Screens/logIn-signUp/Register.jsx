@@ -21,15 +21,15 @@ const Login = () => {
   return (
     <div className="flex h-[1024px] w-full ">
       {/* Left Side with Background Image */}
-      <div className="w-1/2 bg-cover bg-center relative antumnImg">
+      <div className="hidden md:block md:w-1/2 bg-cover bg-center relative antumnImg">
         <div className="absolute top-4 left-4">
           <img src={Eye} alt="Eye Icon" className="w-8 h-8" />
         </div>
       </div>
 
       {/* Right Side with Form */}
-      <div className="w-1/2 flex items-center justify-center bg-gray-100 bgImage">
-        <div className="w-[644px] h-[885px]  shadow-xl rounded-lg flex items-center justify-center flex-col">
+      <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-100 bgImage px-5">
+        <div className="w-full sm:w-[644px] h-[885px]  sm:shadow-xl rounded-lg flex items-center justify-center flex-col">
           <img src={side1} alt="" />
           <h2 className="text-xl font-semibold mb-1 text-center">
             Create Your iLoveView Account
@@ -38,52 +38,48 @@ const Login = () => {
             Sign up to send and receive private videos with family and friends.
           </p>
 
-          <form className="space-y-4">
+          <form className="space-y-4 max-w-md mx-auto">
             {/* Full Name */}
-            <div className="relative">
-              <img
-                src={user}
-                className="absolute top-3 left-3 text-secondary items-center"
-              />
+
+            <div className="relative ">
+              <div className=" absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                <img src={user} className=" text-secondary items-center" />
+              </div>
 
               <input
                 type="text"
+                className=" border text-sm rounded-2xl shadow-md  block w-full ps-10 p-2.5  "
                 placeholder="Full Name"
-                className="w-[463px] px-9 py-2 mb-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-red-400 shadow-sm text-black"
               />
             </div>
 
             {/* Email */}
-
-            <div className="relative flex justify-center items-center">
-              <div className="flex justify-between">
-                <img
-                  src={email}
-                  className="absolute top-3 left-3 text-secondary items-center"
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="w-[463px] px-9 py-2 mb-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-red-400 shadow-sm text-black"
-                />
+            <div className="relative">
+              <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                <img src={email} className=" text-secondary items-center" />
               </div>
+              <input
+                type="email"
+                id="email"
+                className=" border text-sm rounded-2xl shadow-md  block w-full ps-10 p-2.5  "
+                placeholder="Email"
+              />
             </div>
 
             {/* Password */}
             <div className="relative">
-              <img
-                src={lock}
-                className="absolute top-3 left-3 text-secondary items-center"
-              />
+              <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                <img src={lock} className=" text-secondary items-center" />
+              </div>
               <input
                 type={showPassword ? "text" : "password"}
+                className=" border text-sm rounded-2xl shadow-md   block w-full ps-10 p-2.5  "
                 placeholder="Password"
-                className="w-[463px] px-9 py-2 mb-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-red-400 shadow-sm"
               />
               <img
-                src={eyeOn}
+                src={showPassword ? eyeOn : eyeOff}
                 alt=""
-                className="absolute right-3 top-3 cursor-pointer"
+                className="absolute right-2 sm:right-3 top-3 cursor-pointer"
                 onClick={togglePassword}
               />
             </div>
@@ -97,7 +93,7 @@ const Login = () => {
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm Password"
-                className="w-full px-9 py-2 mb-1 border rounded-xl focus:outline-none focus:ring-2 focus:ring-red-400 shadow-sm"
+                className="w-full px-9 py-2 mb-1 border rounded-2xl shadow-md   focus:outline-none focus:ring-2 focus:ring-red-400 "
               />
               <img
                 src={eyeOff}
