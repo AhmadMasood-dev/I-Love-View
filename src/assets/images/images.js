@@ -6,7 +6,8 @@ import onboardImg3 from "./screen1/Onboardings/onboardImg3.png";
 import onboardImg4 from "./screen1/Onboardings/onboardImg4.png";
 import onboardImg5 from "./screen1/Onboardings/onboardImg5.png";
 import onboardImg6 from "./screen1/Onboardings/onboardImg6.png";
-
+import autumn from '../images/Screen2/antumn.png'
+import side1  from './Screen2/login.png'
 import skip from "./screen1/skip.png";
 export {
   Bg,
@@ -18,4 +19,6 @@ export {
   onboardImg5,
   onboardImg6,
   skip,
+  autumn,
+  side1
 };

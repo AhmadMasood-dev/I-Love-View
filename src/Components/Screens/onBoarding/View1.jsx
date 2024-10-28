@@ -1,6 +1,6 @@
-import { Eye } from "../../assets/images/images.js";
-import { skip } from "../../assets/images/images.js";
-import { Onboarding } from "../../assets/images/data.js";
+import { Eye } from "../../../assets/images/images.js";
+import { skip } from "../../../assets/images/images.js";
+import { Onboarding } from "../../../assets/images/data.js";
 import { useState } from "react";
 function View1() {
   const [currentIndex, setCurrentIndex] = useState(0);
