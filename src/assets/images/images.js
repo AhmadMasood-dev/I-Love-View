@@ -14,6 +14,7 @@ import email from "./Screen2/mage_email-opened-fill.svg";
 import user from "./Screen2/wpf_name.svg";
 import eyeOn from "./Screen2/Eye.svg";
 import eyeOff from "./Screen2/EyeOff.svg";
+import verify from "./Screen2/Verify.svg";
 
 export {
   Bg,
@@ -32,4 +33,5 @@ export {
   user,
   eyeOn,
   eyeOff,
+  verify,
 };

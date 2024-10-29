@@ -8,6 +8,7 @@ import {
   user,
   eyeOff,
   eyeOn,
+  verify,
 } from "../../../assets/images/images";
 // import locksvg from "../../../assets/images/Screen2/Group 9.svg";
 const Login = () => {
@@ -19,18 +20,17 @@ const Login = () => {
     setShowConfirmPassword(!showConfirmPassword);
 
   return (
-    <div className="flex h-[1024px] w-full ">
+    <div className="flex h-[852px] sm:h-[1024px] w-full ">
       {/* Left Side with Background Image */}
-      <div className="hidden md:block md:w-1/2 bg-cover bg-center relative antumnImg">
-        <div className="absolute top-4 left-4">
-          <img src={Eye} alt="Eye Icon" className="w-8 h-8" />
-        </div>
+      <div className="hidden md:block md:w-1/2  relative antumnImg"></div>
+      <div className="absolute top-4 left-4">
+        <img src={Eye} alt="Eye Icon" className="w-8 h-8" />
       </div>
 
       {/* Right Side with Form */}
-      <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-100 bgImage px-5">
-        <div className="w-full sm:w-[644px] h-[885px]  sm:shadow-xl rounded-lg flex items-center justify-center flex-col">
-          <img src={side1} alt="" />
+      <div className="w-full md:w-1/2 flex items-center justify-center  bgImage px-5">
+        <div className="w-full sm:w-[644px] sm:h-[885px]  sm:shadow-xl rounded-lg flex items-center justify-center flex-col">
+          <img src={side1} alt="" className="w-[213px] h-[163px]" />
           <h2 className="text-xl font-semibold mb-1 text-center">
             Create Your iLoveView Account
           </h2>
@@ -63,6 +63,11 @@ const Login = () => {
                 id="email"
                 className=" border text-sm rounded-2xl shadow-md  block w-full ps-10 p-2.5  "
                 placeholder="Email"
+              />
+              <img
+                src={verify}
+                alt=""
+                className="absolute right-3 top-3 visible sm:invisible "
               />
             </div>
 
