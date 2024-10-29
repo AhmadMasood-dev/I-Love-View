@@ -5,8 +5,8 @@ import {
   onboardImg4,
   onboardImg5,
   onboardImg6,
-} from "./images.js";
-export const Onboarding = [
+} from "../assets/images/images.js";
+const Onboarding = [
   {
     id: 1,
     image: onboardImg1,
@@ -55,3 +55,5 @@ export const Onboarding = [
     buttonText: "Let's Start",
   },
 ];
+
+export default Onboarding;

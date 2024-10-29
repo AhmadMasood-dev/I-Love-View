@@ -2,15 +2,15 @@ import { useState } from "react";
 
 import {
   Eye,
-  side1,
+  login,
   lock,
   email,
   user,
   eyeOff,
   eyeOn,
   verify,
-} from "../../../assets/images/images";
-// import locksvg from "../../../assets/images/Screen2/Group 9.svg";
+} from "../../assets/images/images.js";
+
 const Login = () => {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -44,13 +44,13 @@ const Login = () => {
     e.preventDefault();
 
     const newErrors = {};
-    // if (!formData.fullName) newErrors.fullName = "Full Name is required.";
-    // if (!formData.email) newErrors.email = "Email is required.";
-    // if (!formData.password) newErrors.password = "Password is required.";
-    // if (!formData.confirmPassword)
-    //   newErrors.confirmPassword = "Confirm Password is required.";
-    // if (formData.password !== formData.confirmPassword)
-    //   newErrors.confirmPassword = "Passwords do not match.";
+    if (!formData.fullName) newErrors.fullName = "Full Name is required.";
+    if (!formData.email) newErrors.email = "Email is required.";
+    if (!formData.password) newErrors.password = "Password is required.";
+    if (!formData.confirmPassword)
+      newErrors.confirmPassword = "Confirm Password is required.";
+    if (formData.password !== formData.confirmPassword)
+      newErrors.confirmPassword = "Passwords do not match.";
     if (!formData.terms)
       newErrors.terms = "You must agree to the Terms of Service.";
 
@@ -82,7 +82,7 @@ const Login = () => {
       {/* Right Side with Form */}
       <div className="w-full md:w-1/2 flex items-center justify-center  bgImage px-5">
         <div className="w-full sm:w-[644px] sm:h-[885px]  sm:shadow-xl rounded-lg flex items-center justify-center flex-col">
-          <img src={side1} alt="" className="w-[213px] h-[163px]" />
+          <img src={login} alt="" className="w-[213px] h-[163px]" />
           <h2 className="text-xl font-semibold mb-1 text-center">
             Create Your iLoveView Account
           </h2>

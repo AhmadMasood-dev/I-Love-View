@@ -1,10 +1,10 @@
-import OnBoarding from "../Components/Screens/onBoarding/OnBoradings";
-import Register from "../Components/Screens/logIn-signUp/Register";
+import Auth from "./Auth";
+import Onboardings from "./OnBoardings";
 function Home() {
   return (
     <>
-      {/* <OnBoarding /> */}
-      <Register />
+      <Onboardings />
+      {/* <Auth /> */}
     </>
   );
 }

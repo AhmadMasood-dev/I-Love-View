@@ -1,11 +1,11 @@
-import { Eye } from "../../../assets/images/images.js";
-import { skip } from "../../../assets/images/images.js";
-import { Onboarding } from "../../../assets/images/data.js";
 import { useState } from "react";
-function View1() {
+import { Eye, skip } from "../../assets/images/images.js";
+import OnboardingData from "../../utils/OnBoardingsData.js";
+
+function Onboarding() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const handleNextCard = () => {
-    if (currentIndex < Onboarding.length - 1) {
+    if (currentIndex < OnboardingData.length - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
       console.log(currentIndex);
     }
@@ -22,7 +22,7 @@ function View1() {
       <div className=" h-full mx-auto flex items-center justify-center  ">
         {/* Card */}
         <div className=" rounded-2xl sm:shadow-lg  flex items-center justify-center text-center h-[550px] w-[500px] ">
-          {Onboarding.map((boarding, index) =>
+          {OnboardingData.map((boarding, index) =>
             index === currentIndex ? (
               <div key={boarding.id} className="w-4/5 h-full">
                 {/* skip icon */}
@@ -62,7 +62,7 @@ function View1() {
                   onClick={handleNextCard}
                   className="bg-primary self-end hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300 w-full mb-2"
                 >
-                  {Onboarding[currentIndex].buttonText}
+                  {OnboardingData[currentIndex].buttonText}
                 </button>
               </div>
             ) : null
@@ -73,4 +73,4 @@ function View1() {
   );
 }
 
-export default View1;
+export default Onboarding;

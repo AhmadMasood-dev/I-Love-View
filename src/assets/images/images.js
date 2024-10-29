@@ -1,20 +1,20 @@
-import Bg from "./screen1/bg.png";
-import Eye from "./screen1/eye.png";
-import onboardImg1 from "./screen1/Onboardings/onboardImg1.png";
-import onboardImg2 from "./screen1/Onboardings/onboardImg2.png";
-import onboardImg3 from "./screen1/Onboardings/onboardImg3.png";
-import onboardImg4 from "./screen1/Onboardings/onboardImg4.png";
-import onboardImg5 from "./screen1/Onboardings/onboardImg5.png";
-import onboardImg6 from "./screen1/Onboardings/onboardImg6.png";
-import autumn from "../images/Screen2/antumn.png";
-import side1 from "./Screen2/login.png";
-import skip from "./screen1/skip.png";
-import lock from "./Screen2/lock9.svg";
-import email from "./Screen2/mage_email-opened-fill.svg";
-import user from "./Screen2/wpf_name.svg";
-import eyeOn from "./Screen2/Eye.svg";
-import eyeOff from "./Screen2/EyeOff.svg";
-import verify from "./Screen2/Verify.svg";
+import Bg from "./onboardings/bg.png";
+import Eye from "./onboardings/eye.png";
+import onboardImg1 from "./onboardings/onboardImg1.png";
+import onboardImg2 from "./Onboardings/onboardImg2.png";
+import onboardImg3 from "./Onboardings/onboardImg3.png";
+import onboardImg4 from "./Onboardings/onboardImg4.png";
+import onboardImg5 from "./Onboardings/onboardImg5.png";
+import onboardImg6 from "./Onboardings/onboardImg6.png";
+import autumn from "../images/auth/antumn.png";
+import login from "./auth/login.png";
+import skip from "./svg/skip_svg.svg";
+import lock from "./svg/lock.svg";
+import email from "./svg/email.svg";
+import user from "./svg/user.svg";
+import eyeOn from "./svg/EyeOn.svg";
+import eyeOff from "./svg/EyeOff.svg";
+import verify from "./svg/Verify.svg";
 
 export {
   Bg,
@@ -27,7 +27,7 @@ export {
   onboardImg6,
   skip,
   autumn,
-  side1,
+  login,
   lock,
   email,
   user,
