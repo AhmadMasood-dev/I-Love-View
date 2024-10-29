@@ -3,8 +3,8 @@ import Onboardings from "./OnBoardings";
 function Home() {
   return (
     <>
-      <Onboardings />
-      {/* <Auth /> */}
+      {/* <Onboardings /> */}
+      <Auth />
     </>
   );
 }

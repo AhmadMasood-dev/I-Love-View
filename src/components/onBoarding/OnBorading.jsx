@@ -7,7 +7,6 @@ function Onboarding() {
   const handleNextCard = () => {
     if (currentIndex < OnboardingData.length - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
-      console.log(currentIndex);
     }
   };
 
