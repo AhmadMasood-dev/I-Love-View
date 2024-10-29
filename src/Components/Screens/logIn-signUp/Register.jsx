@@ -12,12 +12,64 @@ import {
 } from "../../../assets/images/images";
 // import locksvg from "../../../assets/images/Screen2/Group 9.svg";
 const Login = () => {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    terms: false,
+  });
+
+  const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Toggles
   const togglePassword = () => setShowPassword(!showPassword);
   const toggleConfirmPassword = () =>
     setShowConfirmPassword(!showConfirmPassword);
+
+  // Handle input changes dynamically
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  // Form validation and submission handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newErrors = {};
+    // if (!formData.fullName) newErrors.fullName = "Full Name is required.";
+    // if (!formData.email) newErrors.email = "Email is required.";
+    // if (!formData.password) newErrors.password = "Password is required.";
+    // if (!formData.confirmPassword)
+    //   newErrors.confirmPassword = "Confirm Password is required.";
+    // if (formData.password !== formData.confirmPassword)
+    //   newErrors.confirmPassword = "Passwords do not match.";
+    if (!formData.terms)
+      newErrors.terms = "You must agree to the Terms of Service.";
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      setSubmitError("");
+      setFormData({
+        fullName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        terms: false,
+      });
+      alert("Form submitted successfully!");
+    } else {
+      setSubmitError("Some went Wrong..");
+    }
+  };
 
   return (
     <div className="flex h-[852px] sm:h-[1024px] w-full ">
@@ -38,7 +90,7 @@ const Login = () => {
             Sign up to send and receive private videos with family and friends.
           </p>
 
-          <form className="space-y-4 max-w-md mx-auto">
+          <form className="space-y-4 max-w-md mx-auto" onSubmit={handleSubmit}>
             {/* Full Name */}
 
             <div className="relative ">
@@ -47,9 +99,15 @@ const Login = () => {
               </div>
 
               <input
+                // className=" border text-sm rounded-2xl shadow-md  block w-full ps-10 p-2.5  "
                 type="text"
-                className=" border text-sm rounded-2xl shadow-md  block w-full ps-10 p-2.5  "
+                name="fullName"
+                className={`border text-sm rounded-2xl shadow-md block w-full ps-10 p-2.5  ${
+                  errors.fullName ? "border-red-500" : ""
+                }`}
                 placeholder="Full Name"
+                value={formData.fullName}
+                onChange={handleInputChange}
               />
             </div>
 
@@ -60,14 +118,22 @@ const Login = () => {
               </div>
               <input
                 type="email"
+                name="email"
                 id="email"
-                className=" border text-sm rounded-2xl shadow-md  block w-full ps-10 p-2.5  "
+                className={` border text-sm rounded-2xl shadow-md  block w-full ps-10 p-2.5   ${
+                  errors.email ? "border-red-500" : ""
+                }`}
                 placeholder="Email"
+                value={formData.email}
+                onChange={handleInputChange}
               />
+              {/* {errors.email && (
+                 <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+               )} */}
               <img
                 src={verify}
                 alt=""
-                className="absolute right-3 top-3 visible sm:invisible "
+                className="absolute right-3 top-4 visible sm:invisible "
               />
             </div>
 
@@ -78,13 +144,19 @@ const Login = () => {
               </div>
               <input
                 type={showPassword ? "text" : "password"}
-                className=" border text-sm rounded-2xl shadow-md   block w-full ps-10 p-2.5  "
+                name="password"
+                id="password"
+                className={` border text-sm rounded-2xl shadow-md   block w-full ps-10 p-2.5 ${
+                  errors.password ? "border-red-500" : ""
+                }`}
                 placeholder="Password"
+                value={formData.password}
+                onChange={handleInputChange}
               />
               <img
                 src={showPassword ? eyeOn : eyeOff}
                 alt=""
-                className="absolute right-2 sm:right-3 top-3 cursor-pointer"
+                className="absolute right-3 sm:right-3 top-3 cursor-pointer"
                 onClick={togglePassword}
               />
             </div>
@@ -97,20 +169,34 @@ const Login = () => {
               />
               <input
                 type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                id="confirmPassword"
                 placeholder="Confirm Password"
-                className="w-full px-9 py-2 mb-1 border rounded-2xl shadow-md   focus:outline-none focus:ring-2 focus:ring-red-400 "
+                className={`border rounded-2xl shadow-md block w-full ps-10 p-2.5 ${
+                  errors.confirmPassword ? "border-red-500" : ""
+                }`}
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
               />
               <img
-                src={eyeOff}
+                src={showConfirmPassword ? eyeOn : eyeOff}
                 alt=""
-                className="absolute right-3 top-3"
+                className="absolute right-3 top-3 cursor-pointer"
                 onClick={toggleConfirmPassword}
               />
             </div>
 
             {/* Terms and Register Button */}
             <div className="flex items-center space-x-2">
-              <input type="checkbox" id="terms" className="w-5 h-5" />
+              <input
+                type="checkbox"
+                name="terms"
+                id="terms"
+                checked={formData.terms}
+                onChange={handleInputChange}
+                className="w-5 h-5"
+              />
+
               <label htmlFor="terms" className="text-sm">
                 By signing up, you agree to our{" "}
                 <a href="#" className="text-blue hover:underline">
@@ -123,10 +209,16 @@ const Login = () => {
                 .
               </label>
             </div>
+            {errors.terms && (
+              <p className="text-red-500 text-xs">{errors.terms}</p>
+            )}
 
             <button className="w-full py-2 bg-primary text-white rounded-lg hover:bg-red-600">
               Register
             </button>
+            {submitError && (
+              <p className="text-red-500 text-center mt-4">{submitError}</p>
+            )}
 
             <p className="text-center mt-4">
               Already have an account?{" "}
