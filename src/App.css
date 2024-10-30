@@ -14,8 +14,15 @@
 
   width: 100vw;
 }
-/* loader */
+.antumn2Img {
+  background-image: url("./assets/images/auth/autumn2.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 
+  width: 100vw;
+}
+/* loader */
 
 .loader {
   width: 150px;

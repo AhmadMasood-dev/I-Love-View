@@ -13,7 +13,7 @@ import {
 
 import Loader from "../../ui/Spinner.jsx";
 
-const Login = () => {
+const Register = () => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -312,4 +312,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -7,7 +7,12 @@ import onboardImg4 from "./Onboardings/onboardImg4.png";
 import onboardImg5 from "./Onboardings/onboardImg5.png";
 import onboardImg6 from "./Onboardings/onboardImg6.png";
 import autumn from "../images/auth/antumn.png";
+import autumn2 from "../images/auth/autumn2.png";
+
 import login from "./auth/login.png";
+import passwords from "./auth/password.png";
+import emailsent from "./auth/emailsent.png";
+
 import skip from "./svg/skip_svg.svg";
 import lock from "./svg/lock.svg";
 import email from "./svg/email.svg";
@@ -27,7 +32,10 @@ export {
   onboardImg6,
   skip,
   autumn,
+  autumn2,
   login,
+  passwords,
+  emailsent,
   lock,
   email,
   user,

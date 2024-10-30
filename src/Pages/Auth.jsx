@@ -1,6 +1,7 @@
-import Register from "../components/auth/Register";
+// import Register from "../components/auth/Register";
+import Login from "../components/auth/Login";
 function Auth() {
-  return <Register />;
+  return <Login />;
 }
 
 export default Auth;
