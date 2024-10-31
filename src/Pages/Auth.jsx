@@ -1,7 +1,7 @@
 // import Register from "../components/auth/Register";
-import Login from "../components/auth/Login";
+import UpdatePassword from "../components/auth/UpdatePassword";
 function Auth() {
-  return <Login />;
+  return <UpdatePassword />;
 }
 
 export default Auth;

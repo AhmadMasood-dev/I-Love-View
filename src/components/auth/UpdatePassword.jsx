@@ -3,25 +3,26 @@ import { useState } from "react";
 import {
   Eye,
   lock,
-  email,
+  emailsent,
   eyeOff,
   eyeOn,
   passwords,
 } from "../../assets/images/images.js";
-
-import Button from "../generic/Button.jsx";
-const Login = () => {
+function UpdatePassword() {
   const [formData, setFormData] = useState({
-    email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Toggles
   const togglePassword = () => setShowPassword(!showPassword);
+  const toggleConfirmPassword = () =>
+    setShowConfirmPassword(!showConfirmPassword);
 
   // Handle input changes dynamically
   const handleInputChange = (e) => {
@@ -36,7 +37,8 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
-    if (!formData.email) newErrors.email = "Email is required.";
+    if (!formData.confirmPassword)
+      newErrors.confirmPassword = "Confirm Password is required.";
     if (!formData.password) newErrors.password = "Password is required.";
 
     setErrors(newErrors);
@@ -44,8 +46,8 @@ const Login = () => {
     if (Object.keys(newErrors).length === 0) {
       setSubmitError("");
       setFormData({
-        email: "",
         password: "",
+        confirmPassword: "",
       });
     } else {
       setSubmitError("Some went Wrong..");
@@ -64,41 +66,18 @@ const Login = () => {
       <div className="w-full sm:w-1/2 flex items-center justify-center  bgImage px-5">
         <div className="w-full sm:w-[644px] sm:h-[852px] h-full pt-40 sm:pt-5   sm:shadow-2xl rounded-lg flex items-center justify-center flex-col">
           <img
-            src={passwords}
+            src={emailsent}
             alt=""
             className="w-[213px] sm:w-[344px] sm:h-[263px] h-[163px]"
           />
           <h2 className="text-xl font-semibold mb-1 text-center">
-            Create Your iLoveView Account
+            UpdatePassword
           </h2>
-          <p className="text-secondary text-center mb-6 text-sm font-normal">
-            Sign up to send and receive private videos with family and friends.
-          </p>
 
-          <form className="space-y-6 max-w-md mx-auto" onSubmit={handleSubmit}>
-            {/* Full Name */}
-
-            {/* Email */}
-            <div className="relative">
-              <div className="absolute  inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                <img src={email} className=" text-secondary items-center" />
-              </div>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className={` border text-sm rounded-2xl shadow-md  block w-[352px] sm:w-[463px] ps-10 p-2.5   ${
-                  errors.email ? "border-red-500" : ""
-                }`}
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-              {/* {errors.email && (
-                 <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-               )} */}
-            </div>
-
+          <form
+            className="space-y-6 max-w-md w-full mx-auto"
+            onSubmit={handleSubmit}
+          >
             {/* Password */}
             <div className="relative">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -108,7 +87,7 @@ const Login = () => {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 id="password"
-                className={` border text-sm rounded-2xl shadow-md   block w-[352px] sm:w-[463px] ps-10 p-2.5 ${
+                className={` border text-sm rounded-2xl shadow-md   block w-full ps-10 p-2.5 ${
                   errors.password ? "border-red-500" : ""
                 }`}
                 placeholder="Password"
@@ -123,30 +102,45 @@ const Login = () => {
               />
             </div>
 
-            <Button styles="w-full py-2 bg-primary text-white rounded-3xl shadow-md hover:bg-red-600">
+            {/* Confirm Password */}
+            <div className="relative">
+              <img
+                src={lock}
+                className="absolute top-3 left-3 text-secondary items-center"
+              />
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                className={`border rounded-2xl shadow-md block w-full  ps-10 p-2.5 ${
+                  errors.confirmPassword ? "border-red-500" : ""
+                }`}
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+              />
+              <img
+                src={showConfirmPassword ? eyeOn : eyeOff}
+                alt=""
+                className="absolute right-3 top-3 cursor-pointer"
+                onClick={toggleConfirmPassword}
+              />
+            </div>
+
+            <button className="w-full py-2 bg-primary text-white rounded-3xl shadow-md hover:bg-red-600">
               Login
-            </Button>
+            </button>
             {submitError && (
               <p className="text-red-500 text-center mt-4">{submitError}</p>
             )}
-
-            <p className="text-center mt-4">
-              {`Don't hav a account?`}
-              <a href="#" className="text-blue hover:underline">
-                Register
-              </a>
-            </p>
+            <button className="w-full py-2 bg-gray-500 text-white rounded-3xl shadow-md hover:bg-secondary">
+              Skip
+            </button>
           </form>
-          <div className="w-full flex justify-center items-center mt-auto pb-4">
-            <p>
-              <span className="text-blue">[Terms of Service]</span> and{" "}
-              <span className="text-blue">[Privacy Policy]</span>
-            </p>
-          </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default Login;
+export default UpdatePassword;
