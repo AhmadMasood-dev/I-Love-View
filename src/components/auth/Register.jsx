@@ -4,7 +4,7 @@ import {
   Eye,
   login,
   lock,
-  email,
+  emailsvg,
   user,
   eyeOff,
   eyeOn,
@@ -12,8 +12,11 @@ import {
 } from "../../assets/images/images.js";
 
 import Loader from "../../ui/Spinner.jsx";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = ({}) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -21,18 +24,16 @@ const Register = () => {
     confirmPassword: "",
     terms: false,
   });
-
-  const [verifyEmail, setVerifyEmail] = useState(true);
+  const [email, setEmail] = useState("");
+  const [verifyEmail, setVerifyEmail] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // verify email
-  const [code, setCode] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const correctCode = "123456";
 
   // Toggles
   const togglePassword = () => setShowPassword(!showPassword);
@@ -65,38 +66,54 @@ const Register = () => {
       newErrors.terms = "You must agree to the Terms of Service.";
 
     setErrors(newErrors);
-
     if (Object.keys(newErrors).length === 0) {
-      setTimeout(() => {
-        setSubmitError("");
-        setFormData({
-          fullName: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          terms: false,
+      const { fullName, email, password } = formData;
+
+      setSubmitError("");
+      setFormData({
+        fullName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        terms: false,
+      });
+
+      axios
+        .post(
+          "https://iloveview-backend-production.up.railway.app/auth/register",
+          { fullName, email, password },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          if (response.status === 201) {
+            setEmail(response.data.email); // Set email state
+            setVerifyEmail(false);
+            console.log("Navigating to verify page"); // Check if this is reached
+            navigate("/verify");
+          }
+          console.log(response);
+        })
+        .catch((error) => {
+          if (error.response) {
+            const errorMessage =
+              error.response.data.message || "Error occurred";
+            setSubmitError(errorMessage);
+          } else {
+            setSubmitError("Network error, please try again.");
+          }
+          console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
-        setVerifyEmail(false);
-        setLoading(false); // Stop loading
-      }, 1500);
     } else {
-      setSubmitError("Some went Wrong..");
+      setSubmitError("Please fill out all required fields correctly.");
       setLoading(false);
     }
-  };
-
-  const handleVerify = () => {
-    setLoading(true); // Start loading
-
-    // Simulate server verification delay (2 seconds)
-    setTimeout(() => {
-      if (code === correctCode) {
-        setMessage("✅ Code verified successfully!");
-      } else {
-        setMessage("❌ Invalid code, please try again.");
-      }
-      setLoading(false); // Stop loading
-    }, 2000);
   };
 
   return (
@@ -127,142 +144,63 @@ const Register = () => {
 
               <form
                 className="space-y-4 max-w-md mx-auto"
-                onSubmit={verifyEmail ? handleSubmit : handleVerify}
+                // onSubmit={verifyEmail ? handleSubmit : handleVerify}
+                onSubmit={handleSubmit}
               >
                 {/* Full Name */}
 
-                {verifyEmail ? (
-                  <>
-                    <div className="relative ">
-                      <div className=" absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                        <img
-                          src={user}
-                          className=" text-secondary items-center"
-                        />
-                      </div>
-
-                      <input
-                        // className=" border text-sm rounded-2xl shadow-md  block w-full ps-10 p-2.5  "
-                        type="text"
-                        name="fullName"
-                        className={`border text-sm rounded-2xl shadow-md block w-full ps-10 p-2.5  ${
-                          errors.fullName ? "border-red-500" : ""
-                        }`}
-                        placeholder="Full Name"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
+                <>
+                  <div className="relative ">
+                    <div className=" absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                      <img
+                        src={user}
+                        className=" text-secondary items-center"
                       />
                     </div>
 
-                    {/* Email */}
-                    <div className="relative">
-                      <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                        <img
-                          src={email}
-                          className=" text-secondary items-center"
-                        />
-                      </div>
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        className={` border text-sm rounded-2xl shadow-md  block w-full ps-10 p-2.5   ${
-                          errors.email ? "border-red-500" : ""
-                        }`}
-                        placeholder="Email"
-                        value={formData.email}
-                        onChange={handleInputChange}
+                    <input
+                      // className=" border text-sm rounded-2xl shadow-md  block w-full ps-10 p-2.5  "
+                      type="text"
+                      name="fullName"
+                      className={`border text-sm rounded-2xl shadow-md block w-full ps-10 p-2.5  ${
+                        errors.fullName ? "border-red-500" : ""
+                      }`}
+                      placeholder="Full Name"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div className="relative">
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                      <img
+                        src={emailsvg}
+                        className=" text-secondary items-center"
                       />
-                      {/* {errors.email && (
+                    </div>
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      className={` border text-sm rounded-2xl shadow-md  block w-full ps-10 p-2.5   ${
+                        errors.email ? "border-red-500" : ""
+                      }`}
+                      placeholder="Email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                    />
+                    {/* {errors.email && (
                  <p className="text-red-500 text-xs mt-1">{errors.email}</p>
                )} */}
-                      <img
-                        src={verify}
-                        alt=""
-                        className="absolute right-3 top-4 visible sm:invisible "
-                      />
-                    </div>
+                    <img
+                      src={verify}
+                      alt=""
+                      className="absolute right-3 top-4 visible sm:invisible "
+                    />
+                  </div>
 
-                    {/* Password */}
-                    <div className="relative">
-                      <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                        <img
-                          src={lock}
-                          className=" text-secondary items-center"
-                        />
-                      </div>
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        id="password"
-                        className={` border text-sm rounded-2xl shadow-md   block w-full ps-10 p-2.5 ${
-                          errors.password ? "border-red-500" : ""
-                        }`}
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleInputChange}
-                      />
-                      <img
-                        src={showPassword ? eyeOn : eyeOff}
-                        alt=""
-                        className="absolute right-3 sm:right-3 top-3 cursor-pointer"
-                        onClick={togglePassword}
-                      />
-                    </div>
-
-                    {/* Confirm Password */}
-                    <div className="relative">
-                      <img
-                        src={lock}
-                        className="absolute top-3 left-3 text-secondary items-center"
-                      />
-                      <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        placeholder="Confirm Password"
-                        className={`border rounded-2xl shadow-md block w-full ps-10 p-2.5 ${
-                          errors.confirmPassword ? "border-red-500" : ""
-                        }`}
-                        value={formData.confirmPassword}
-                        onChange={handleInputChange}
-                      />
-                      <img
-                        src={showConfirmPassword ? eyeOn : eyeOff}
-                        alt=""
-                        className="absolute right-3 top-3 cursor-pointer"
-                        onClick={toggleConfirmPassword}
-                      />
-                    </div>
-
-                    {/* Terms and Register Button */}
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        name="terms"
-                        id="terms"
-                        checked={formData.terms}
-                        onChange={handleInputChange}
-                        className="w-5 h-5"
-                      />
-
-                      <label htmlFor="terms" className="text-sm">
-                        By signing up, you agree to our{" "}
-                        <a href="#" className="text-blue hover:underline">
-                          [Terms of Service]
-                        </a>{" "}
-                        and{" "}
-                        <a href="#" className="text-blue hover:underline">
-                          [Privacy Policy]
-                        </a>
-                        .
-                      </label>
-                    </div>
-                    {errors.terms && (
-                      <p className="text-red-500 text-xs">{errors.terms}</p>
-                    )}
-                  </>
-                ) : (
+                  {/* Password */}
                   <div className="relative">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                       <img
@@ -271,22 +209,76 @@ const Register = () => {
                       />
                     </div>
                     <input
-                      type="text"
-                      name="code"
-                      id="email"
-                      required
-                      className={` border text-sm rounded-2xl shadow-md  block w-[463px] ps-10 p-2.5   ${
-                        errors.email ? "border-red-500" : ""
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      id="password"
+                      className={` border text-sm rounded-2xl shadow-md   block w-full ps-10 p-2.5 ${
+                        errors.password ? "border-red-500" : ""
                       }`}
-                      placeholder="Enter your code"
-                      value={code}
-                      onChange={(e) => setCode(e.target.value)}
+                      placeholder="Password"
+                      value={formData.password}
+                      onChange={handleInputChange}
                     />
-                    {/* {errors.email && (
-                 <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-               )} */}
+                    <img
+                      src={showPassword ? eyeOn : eyeOff}
+                      alt=""
+                      className="absolute right-3 sm:right-3 top-3 cursor-pointer"
+                      onClick={togglePassword}
+                    />
                   </div>
-                )}
+
+                  {/* Confirm Password */}
+                  <div className="relative">
+                    <img
+                      src={lock}
+                      className="absolute top-3 left-3 text-secondary items-center"
+                    />
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      name="confirmPassword"
+                      id="confirmPassword"
+                      placeholder="Confirm Password"
+                      className={`border rounded-2xl shadow-md block w-full ps-10 p-2.5 ${
+                        errors.confirmPassword ? "border-red-500" : ""
+                      }`}
+                      value={formData.confirmPassword}
+                      onChange={handleInputChange}
+                    />
+                    <img
+                      src={showConfirmPassword ? eyeOn : eyeOff}
+                      alt=""
+                      className="absolute right-3 top-3 cursor-pointer"
+                      onClick={toggleConfirmPassword}
+                    />
+                  </div>
+
+                  {/* Terms and Register Button */}
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      name="terms"
+                      id="terms"
+                      checked={formData.terms}
+                      onChange={handleInputChange}
+                      className="w-5 h-5"
+                    />
+
+                    <label htmlFor="terms" className="text-sm">
+                      By signing up, you agree to our{" "}
+                      <a href="#" className="text-blue hover:underline">
+                        [Terms of Service]
+                      </a>{" "}
+                      and{" "}
+                      <a href="#" className="text-blue hover:underline">
+                        [Privacy Policy]
+                      </a>
+                      .
+                    </label>
+                  </div>
+                  {errors.terms && (
+                    <p className="text-red-500 text-xs">{errors.terms}</p>
+                  )}
+                </>
 
                 <button className="w-full py-2 bg-primary text-white rounded-3xl shadow-md hover:bg-red-600">
                   {verifyEmail ? "Register" : "Verify"}
